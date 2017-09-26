@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+
+		<title>Description Demo</title>
+
+		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+	</head>
+
+	<body>
+		<header class="container">
+			<h1>Description Demo</h1>
+		</header>
+
+		<div class="container">
+			<form id="form">
+				<!--提示信息的位置-->
+				<div id="age-description"></div>
+			
+				<div class="control-group input-append">
+					<input type="text" name="age" id="age" data-required="true" data-pattern="^[0-9]+$" data-describedby="age-description" data-description="age" />
+
+					<label for="age" class="add-on"><span class="icon-asterisk"></span> Age</label>
+				</div>
+
+
+				<div class="btn-group">
+					<button type="submit" class="btn btn-primary">Send</button>
+
+					<button type="reset" class="btn">Reset</button>
+				</div>
+			</form>
+		</div>
+
+		<script src="vendor/jquery-1.9.0.min.js"></script>
+
+		<script src="../jquery-validate.js"></script>
+
+		<script>
+			$('form').validate({
+				onKeyup : true,
+				sendForm : false,
+				//当每个验证通过时
+				eachValidField : function() {
+
+					$(this).closest('div').removeClass('error').addClass('success');
+				},
+				//每个验证不通过时
+				eachInvalidField : function() {
+
+					$(this).closest('div').removeClass('success').addClass('error');
+				},
+				//提示信息的内容定制 data-description="age" 指向age方法
+				description : {
+					age : {
+						//不能为空
+						required : '<div class="alert alert-error">年龄不能为空</div>',
+						//格式不这个却
+						pattern : '<div class="alert alert-error">格式错误</div>',
+						//条件不对
+						conditional : '<div class="alert alert-error">Conditional</div>',
+						//通过了
+						valid : '<div class="alert alert-success">Valid</div>'
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
